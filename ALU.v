@@ -1,4 +1,4 @@
-module ALU (input [3:0] Opcode, input [15:0] in1, input [15:0] in2, output [15:0] out);
+module ALU (input [3:0] Opcode, input [15:0] in1, input [15:0] in2, output [15:0] out, output [2:0] flags); // flags are [2] Z, [1] V, [0] N
 	wire [31:0] routlong;
 	wire [15:0] addout, shout, redout, padout;
 	wire add, pad, shift, red, excor;
@@ -39,4 +39,8 @@ module ALU (input [3:0] Opcode, input [15:0] in1, input [15:0] in2, output [15:0
 		(pad) ? padout : 
 		(shift) ? shout : 
 		(red) ? routlong[15:0] : (in1 ^ in2);
+		
+	assign flags[2] = (out == 16'h0000) ? 1'b1 : 1'b0;
+	assign flags[1] = claovf
+	assign flags[0] = out[15];
 endmodule
