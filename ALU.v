@@ -41,6 +41,6 @@ module ALU (input [3:0] Opcode, input [15:0] in1, input [15:0] in2, output [15:0
 		(red) ? routlong[15:0] : (in1 ^ in2);
 		
 	assign flags[2] = (out == 16'h0000) ? 1'b1 : 1'b0;
-	assign flags[1] = claovf
+	assign flags[1] = claovf;
 	assign flags[0] = out[15];
 endmodule
