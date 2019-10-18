@@ -16,7 +16,7 @@ assign {r2} = (Shift_Val[1]) ? { {2{Shift_In[15]}}, r1[15:2]} : r1;
 assign {r3} = (Shift_Val[2]) ? { {4{r2[15]}}, r2[15:4]} : r2;
 assign {r4} = (Shift_Val[3]) ? { {8{r3[15]}}, r3[15:8]} : r3;
 
-assign {t1} = (Shift_Val[0]) ? {Shift_In[0], Shift_In[15:1]} : Shift_In;  // SRA
+assign {t1} = (Shift_Val[0]) ? {Shift_In[0], Shift_In[15:1]} : Shift_In;  // ROT
 assign {t2} = (Shift_Val[1]) ? { t1[1:0], t1[15:2]} : t1;
 assign {t3} = (Shift_Val[2]) ? { t2[3:0], t2[15:4]} : t2;
 assign {t4} = (Shift_Val[3]) ? { t3[7:0], t3[15:8]} : t3;
