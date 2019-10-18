@@ -30,3 +30,24 @@ module PSA_tb();
 		//end
 	end
 endmodule
+
+module ALU_tb();
+	reg [15:0] i1, i2;
+	reg [3:0] op;
+	wire [15:0] out1;
+	
+	wire [15:0] claout;
+	
+	ALU alu (.Opcode(op), .in1(i1), .in2(i2), .out(out1));
+	//cla_16bit ctest(.Sum(claout), .Ovfl(), .A(i1), .B(i2), .Cin(1'b0));
+	
+	initial begin
+		op = 4'b0001;
+		i1 = 16'b0000000000000001;
+		i2 = 16'b0000000000000001;
+		
+		#10;
+		//$display("%B + %B = %B", i1, i2, claout);
+		$display("%B op %B = %B, Opcode = %B", i1, i2, out1, op);
+	end
+endmodule

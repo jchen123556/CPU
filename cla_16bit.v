@@ -5,11 +5,11 @@ module cla_16bit(Sum, Ovfl, A, B, Cin);
 // By: Parker Schroeder                                                      |
 /////////////////////////////////////////////////////////////////////////////|
 
-output wire [15:0] Sum;
-output wire Ovfl;
-input wire [15:0] A;
-input wire [15:0] B;
-input wire Cin;
+output [15:0] Sum;
+output Ovfl;
+input [15:0] A;
+input [15:0] B;
+input Cin;
 
 wire [3:0] G, P;
 wire [4:0] C;
