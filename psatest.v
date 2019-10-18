@@ -43,11 +43,33 @@ module ALU_tb();
 	
 	initial begin
 		op = 4'b0001;
-		i1 = 16'b0000000000000001;
-		i2 = 16'b0000000000000001;
-		
+		i1 = 16'h8000;
+		i2 = 16'h7fff;
 		#10;
 		//$display("%B + %B = %B", i1, i2, claout);
-		$display("%B op %B = %B, Opcode = %B", i1, i2, out1, op);
+		$display("%B + %B = %B, Opcode = %B", i1, i2, out1, op);
+		
+		// shifts
+		op = 4'b0100;
+		i1 = 16'b0000000000000001;
+		i2 = 16'b0000000000000010;
+		#10;
+		$display("%B sll %B = %B, Opcode = %B", i1, i2, out1, op);
+		op = 4'b0101;
+		i1 = 16'b0000000000001000;
+		i2 = 16'b0000000000000001;
+		#10;
+		$display("%B sra %B = %B, Opcode = %B", i1, i2, out1, op);
+		op = 4'b0110;
+		i1 = 16'b0000000000000001;
+		i2 = 16'b0000000000000010;
+		#10;
+		$display("%B ror %B = %B, Opcode = %B", i1, i2, out1, op);
+		
+		// psa
+		
+		// adds
+		
+		// reduction
 	end
 endmodule
