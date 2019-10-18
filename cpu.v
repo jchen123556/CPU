@@ -70,6 +70,13 @@ module cpu(clk, rst_n, hlt, pc);
 	// pc src determined by branch control
 	assign regw = (opcode[3] == 1'b0) | (opcode == 4'b1000) | (opcode == 4'b1010) | (opcode == 4'b1011);
 	
+	wire [15:0] dst_data, lb_data, lw_data, alu_data;
+	assign dst_data = (!opcode[3]) ? alu_data : (opcode[3:1] == 3'b101) ? lb_data : lw_data;
+	assign lw_data = rt_reg;
+	assign lb_data = (opcode[0]) ? {imm_8_bit, 8'h00} : {8'h00, imm_8_bit};
+	
+	ALU alu(.Opcode(opcode), .in1(rs_reg), .in2(rt_reg), .out(alu_data));
+
 	// Fetch from registers
 	// check RST signal...
 	RegisterFile rf (.clk(clk), .rst(!rst_n), .SrcReg1(rs), .SrcReg2(rt), .DstReg(rd), .WriteReg(regw), .DstData(/*cal value*/), .SrcData1(rs_reg), .SRCData2(rt_reg));
