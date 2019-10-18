@@ -37,17 +37,14 @@ module ALU_tb();
 	wire [15:0] out1;
 	
 	wire [15:0] claout;
+	wire [2:0] flag;
 	
-	ALU alu (.Opcode(op), .in1(i1), .in2(i2), .out(out1));
-	//cla_16bit ctest(.Sum(claout), .Ovfl(), .A(i1), .B(i2), .Cin(1'b0));
+	ALU alu (.Opcode(op), .in1(i1), .in2(i2), .out(out1), .flags(flag));
+	cla_16bit ctest(.Sum(claout), .Ovfl(), .A(16'h9000), .B(16'h9000), .Cin(1'b0));
 	
 	initial begin
-		op = 4'b0001;
-		i1 = 16'h8000;
-		i2 = 16'h7fff;
-		#10;
-		//$display("%B + %B = %B", i1, i2, claout);
-		$display("%B + %B = %B, Opcode = %B", i1, i2, out1, op);
+		#10
+		$display("%B + %B = %B", 16'h9000, 16'h9000, claout);
 		
 		// shifts
 		op = 4'b0100;
@@ -69,7 +66,37 @@ module ALU_tb();
 		// psa
 		
 		// adds
+		// normal add
+		op = 4'b0000;
+		i1 = 16'h24a3;
+		i2 = 16'h0093;
+		#10;
+		$display("%B + %B = %B, Opcode = %B, flags = %B", i1, i2, out1, op, flag);
 		
+		// normal subtraction
+		op = 4'b0001;
+		i1 = 16'h0032;
+		i2 = 16'h0005;
+		#10;
+		$display("%B - %B = %B, Opcode = %B", i1, i2, out1, op);
+		
+		// overflow below
+		op = 4'b0001;
+		i1 = 16'h9000;
+		i2 = 16'h9000;
+		#10;
+		$display("%B - %B = %B, Opcode = %B", i1, i2, out1, op);
+		
+		// overflow above
+		op = 4'b0000;
+		i1 = 16'h7f0f;
+		i2 = 16'h7888;
+		#10;
+		$display("%B + %B = %B, Opcode = %B", i1, i2, out1, op);
 		// reduction
 	end
 endmodule
+
+
+
+
