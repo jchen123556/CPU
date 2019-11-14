@@ -3,5 +3,7 @@
 !/*.v
 !/*.sv
 !/**/
-!/**/*.v
-!/**/*.sv
+!/project_phase1/*.v
+!/project_phase1/*.sv
+!/project_phase2/*.v
+!/project_phase2/*.sv
