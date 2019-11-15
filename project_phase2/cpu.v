@@ -2,7 +2,11 @@ module cpu(clk, rst_n, hlt, pc_out);
 	input clk, rst_n;
 	output hlt;
 	output [15:0] pc_out;
-	wire [15:0] instr;
+	wire [15:0] instr;	
+	wire stall;
+	wire [1:0] ex_fwd1, ex_fwd2;
+	wire mem_fwd1, mem_fwd2;
+	wire [15:0] real_alu_input_0, real_alu_input_1;
 	
 	// inputs
 	wire [3:0] opcode;
@@ -62,9 +66,9 @@ module cpu(clk, rst_n, hlt, pc_out);
 	wire [15:0] WB_alu_data, WB_lw_data, WB_pc_inc;
 	wire [7:0] WB_imm8;
 	
-    IFID_ff ff_ifid(.d_PC(IF_pc_inc), .d_pc_out(IF_pc_out), .d_instr(IF_instr), .d_rs_reg(), 
-					.q_PC(ID_pc_inc), .q_pc_out(ID_pc_out), .q_instr(ID_instr), .q_rs_reg(), 
-					.wen(1), .clk(clk), .rst(rst));
+    IFID_ff ff_ifid(.d_pc_inc(IF_pc_inc), .d_pc_out(IF_pc_out), .d_instr(IF_instr), .d_rs_reg(), 
+					.q_pc_inc(ID_pc_inc), .q_pc_out(ID_pc_out), .q_instr(ID_instr), .q_rs_reg(), 
+					.wen(!stall), .clk(clk), .rst(rst | ID_Branch));
 	
 	IDEX_ff ff_idex(.d_RegDst(ID_RegDst), .d_ALUOp1(ID_ALUOp1), .d_ALUOp0(ID_ALUOp0), .d_ALUSrc(ID_ALUSrc),
 				    .q_RegDst(EX_RegDst), .q_ALUOp1(EX_ALUOp1), .q_ALUOp0(EX_ALUOp0), .q_ALUSrc(EX_ALUSrc),
@@ -115,9 +119,10 @@ module cpu(clk, rst_n, hlt, pc_out);
 	assign IF_pc_out = pc_out;
 	
 	assign ID_MemRead = memr;
-	assign ID_MemWrite = memw;
+	assign ID_MemWrite = (stall) ? 0 : memw;
 	assign ID_MemtoReg = memtoreg;
-	assign ID_RegWrite = regw;
+	assign ID_RegWrite = (stall) ? 0 : regw;
+	
 	assign ID_ALUOp0 = alu_in1; // not right, check rs_reg to see what it does
 	assign ID_ALUOp1 = alu_in2; // not right, check rs_reg to see what it does
 	assign ID_RegRd = rd;
@@ -136,15 +141,17 @@ module cpu(clk, rst_n, hlt, pc_out);
 
 
 	// Fetch stage ?
+	wire pc_mux;
+	assign pc_mux = (ID_Branch) ? pc_next : IF_pc_inc;
 	
 	//assign pc_ctr here... including branch conditions
-	Register pc_register(.clk(clk), .rst(!rst_n), .D(pc_next), .WriteReg(1'b1), .ReadEnable1(1'b1), .ReadEnable2(1'b0), .Bitline1(pc_output), .Bitline2());
+	Register pc_register(.clk(clk), .rst(!rst_n), .D(pc_next), .WriteReg(!stall), .ReadEnable1(1'b1), .ReadEnable2(1'b0), .Bitline1(pc_output), .Bitline2());
 	
 	// IF Stage //
 	cla_16bit pc_step(.Sum(pc_inc), .Ovfl(), .A(pc_output), .B(16'h0002), .Cin(1'b0));
 	
 	// ID Stage // 
-	pcc control(.clk(clk), .rst_n(rst_n), .fl(fl), .instr(ID_instr), .rs_reg(rs_reg), .pc_output(ID_pc_out), .pc_next(pc_next), .pc_inc(ID_pc_inc), .hlt(hlt)); // TODO extract code to split stages
+	pcc control(.clk(clk), .rst_n(rst_n), .fl(fl), .instr(ID_instr), .rs_reg(rs_reg), .pc_output(ID_pc_out), .pc_next(pc_next), .pc_inc(ID_pc_inc), .hlt(hlt), .branch(ID_Branch)); // TODO extract code to split stages
 
 	// IF Stage //
 	// Fetch instruction from instruction mem
@@ -169,6 +176,9 @@ module cpu(clk, rst_n, hlt, pc_out);
 	// pc src determined by branch control
 	assign regw = (opcode[3] == 1'b0) | (opcode == 4'b1000) | (opcode[3:1] == 3'b101) | (opcode == 4'b1110);
 	
+	// ID Stage //
+	hazard haz(.IDEX_mr(EX_MemRead), .IFID_br(ID_Branch), .IDEX_rd(EX_RegRd), .IFID_rt(ID_RegRt), .IFID_rs(ID_RegRs),
+	.EXMEM_mr(MEM_MemRead), .EXMEM_rd(MEM_RegRd), .IDEX_rw(EX_RegWrite), .stall(stall));	
 	
 	// WB stage maybe?
 	
@@ -184,7 +194,23 @@ module cpu(clk, rst_n, hlt, pc_out);
 			((opcode[3:2] == 2'b01) && (opcode[1:0] != 2'b11)) ? {12'h000, ID_instr[3:0]} : rt_reg;
 	
 	// EX stage
-	ALU alu(.Opcode(EX_Opcode), .in1(EX_ALUOp0), .in2(EX_ALUOp1), .out(alu_data), .flags(fl)); // TODO: pipeline flags
+	ALU alu(.Opcode(EX_Opcode), .in1(real_alu_input_0), .in2(real_alu_input_1), .out(alu_data), .flags(fl)); // TODO: pipeline flags
+	
+	ForwardingUnit forward(.IDEX_rs(EX_RegRs), .IDEX_rt(EX_RegRt), .EXMEM_rd(MEM_RegRd), .EXMEM_rw(MEM_RegWrite), 
+	.MEMWB_rw(WB_RegWrite), .MEMWB_rt(WB_RegRt), .MEMWB_rd(WB_RegRd), .EXMEM_rs(MEM_RegRs), .EXMEM_rt(MEM_RegRt), .EXMEM_mr(MEM_MemRead), .EXMEM_mw(MEM_MemWrite),
+	.ex_fwd1(ex_fwd1), .ex_fwd2(ex_fwd2), .mem_fwd1(mem_fwd1), .mem_fwd2(mem_fwd2));
+	
+	// EX forwarding muxes //
+	assign real_alu_input_0 = (ex_fwd1 == 2'b10) ? MEM_alu_data : (ex_fwd1 == 2'b01) ? dst_data : EX_ALUOp0;
+	assign real_alu_input_1 = (ex_fwd2 == 2'b10) ? MEM_alu_data : (ex_fwd2 == 2'b01) ? dst_data : EX_ALUOp1;
+	
+	// MEM forwarding muxes //
+	wire [15:0] real_mem_input_0, real_mem_input_1;
+	wire [15:0] ext_forwarding_addr;
+	cla_16bit imm_add(.Sum(ext_forwarding_addr), .Ovfl(), .A(WB_lw_data), .B({{8{MEM_imm8[7]}}, MEM_imm8}), .Cin(1'b0));
+	
+	assign real_mem_input_0 = (mem_fwd1 == 1'b0) ? MEM_alu_data : ext_forwarding_addr;
+	assign real_mem_input_1 = (mem_fwd2 == 1'b0) ? MEM_RegRtVal : WB_lw_data;
 	
 	// Register file deals with stuff in the ID and WB stages
 	
@@ -197,6 +223,6 @@ module cpu(clk, rst_n, hlt, pc_out);
     // MEM stage //
 
 	// main filespace
-	memory1c usr_data(.data_out(lw_data), .data_in(MEM_RegRtVal), .addr(alu_data), .enable(MEM_MemRead), .wr(MEM_MemWrite), .clk(clk), .rst(!rst_n)); // TODO: pipeline data
+	memory1c usr_data(.data_out(lw_data), .data_in(real_mem_input_1), .addr(real_mem_input_0), .enable(MEM_MemRead), .wr(MEM_MemWrite), .clk(clk), .rst(!rst_n)); // TODO: pipeline data
 	
 	endmodule

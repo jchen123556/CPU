@@ -10,7 +10,7 @@ z2
 cModel Technology
 d/filespace/p/ptschroeder/ece551/MooreMachines/FinalProject
 vALU
-Z0 !s110 1573850417
+Z0 !s110 1573859634
 !i10b 1
 !s100 E0?zI]bVWZJMD9IdhI2c>3
 I4K0fZ4RhTbc0L3YeRf_c_3
@@ -24,7 +24,7 @@ Z4 OP;L;10.4a;61
 r1
 !s85 0
 31
-Z5 !s108 1573850417.000000
+Z5 !s108 1573859634.000000
 !s107 C:/Users/pschr/Desktop/ECE 552/Project/proj_phase2/CPU/project_phase2/ALU.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/pschr/Desktop/ECE 552/Project/proj_phase2/CPU/project_phase2/ALU.v|
 !s101 -O0
@@ -32,7 +32,7 @@ Z5 !s108 1573850417.000000
 Z6 o-work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact -O0
 n@a@l@u
 vALU_tb
-Z7 !s110 1573850418
+Z7 !s110 1573859635
 !i10b 1
 !s100 FI>V0H;fY[feWCj=OZ3l[0
 If_VKe4?9=6@a>f=m>MVb73
@@ -46,7 +46,7 @@ R4
 r1
 !s85 0
 31
-Z10 !s108 1573850418.000000
+Z10 !s108 1573859635.000000
 Z11 !s107 C:/Users/pschr/Desktop/ECE 552/Project/proj_phase2/CPU/project_phase2/psatest.v|
 Z12 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/pschr/Desktop/ECE 552/Project/proj_phase2/CPU/project_phase2/psatest.v|
 !s101 -O0
@@ -55,28 +55,28 @@ R6
 n@a@l@u_tb
 vBitCell
 Z13 DXx6 sv_std 3 std 0 22 WmjPaeP=7F5?QFXzJ>D[Q2
-Z14 !s110 1573850419
+R7
 !i10b 1
 !s100 1mYekEe`KnL:3am1BjbWX2
 I^KI<QO3mS35ZlOUl5nHHG0
 R1
-Z15 !s105 savereg_sv_unit
+Z14 !s105 savereg_sv_unit
 S1
 R2
 R3
-Z16 8C:/Users/pschr/Desktop/ECE 552/Project/proj_phase2/CPU/project_phase2/savereg.sv
-Z17 FC:/Users/pschr/Desktop/ECE 552/Project/proj_phase2/CPU/project_phase2/savereg.sv
+Z15 8C:/Users/pschr/Desktop/ECE 552/Project/proj_phase2/CPU/project_phase2/savereg.sv
+Z16 FC:/Users/pschr/Desktop/ECE 552/Project/proj_phase2/CPU/project_phase2/savereg.sv
 L0 102
 R4
 r1
 !s85 0
 31
-Z18 !s108 1573850419.000000
-Z19 !s107 C:/Users/pschr/Desktop/ECE 552/Project/proj_phase2/CPU/project_phase2/savereg.sv|
-Z20 !s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/pschr/Desktop/ECE 552/Project/proj_phase2/CPU/project_phase2/savereg.sv|
+R10
+Z17 !s107 C:/Users/pschr/Desktop/ECE 552/Project/proj_phase2/CPU/project_phase2/savereg.sv|
+Z18 !s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/pschr/Desktop/ECE 552/Project/proj_phase2/CPU/project_phase2/savereg.sv|
 !s101 -O0
 !i113 1
-Z21 o-work work -sv -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact -O0
+Z19 o-work work -sv -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact -O0
 n@bit@cell
 vcla_16bit
 R0
@@ -141,8 +141,29 @@ R5
 !s101 -O0
 !i113 1
 R6
+vcpu_ptb
+R7
+!i10b 1
+!s100 ?EnZzc@n8=>^chjlz]n_k2
+IY`fLPd4HY>g1L:`Y;`K^G1
+R1
+R2
+R3
+8C:/Users/pschr/Desktop/ECE 552/Project/proj_phase2/CPU/project_phase2/project-phase2-testbench.v
+FC:/Users/pschr/Desktop/ECE 552/Project/proj_phase2/CPU/project_phase2/project-phase2-testbench.v
+L0 1
+R4
+r1
+!s85 0
+31
+R10
+!s107 C:/Users/pschr/Desktop/ECE 552/Project/proj_phase2/CPU/project_phase2/project-phase2-testbench.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/pschr/Desktop/ECE 552/Project/proj_phase2/CPU/project_phase2/project-phase2-testbench.v|
+!s101 -O0
+!i113 1
+R6
 vcpu_tb
-R14
+R7
 !i10b 1
 !s100 08n:=NQnzdll=TBEOQWGD3
 IlTnB5P3NA:@6SdLGhcZi51
@@ -156,7 +177,7 @@ R4
 r1
 !s85 0
 31
-R18
+R10
 !s107 C:/Users/pschr/Desktop/ECE 552/Project/proj_phase2/CPU/project_phase2/project-phase1-testbench.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/pschr/Desktop/ECE 552/Project/proj_phase2/CPU/project_phase2/project-phase1-testbench.v|
 !s101 -O0
@@ -186,11 +207,11 @@ R6
 vEXMEM_ff
 R0
 !i10b 1
-!s100 iZO:H]CK8HW2jK23Zfj<50
-IXKEI6?K2YFOld`m2f3I092
+!s100 ]Q?kL^lS0=zV7oKJViG<J0
+II6KY`VXk]ng8AnFMjezjk1
 R1
 R2
-w1573849442
+w1573851279
 8C:\Users\pschr\Desktop\ECE 552\Project\proj_phase2\CPU\project_phase2\EXMEM_ff.v
 FC:\Users\pschr\Desktop\ECE 552\Project\proj_phase2\CPU\project_phase2\EXMEM_ff.v
 L0 3
@@ -206,13 +227,13 @@ R5
 R6
 n@e@x@m@e@m_ff
 vForwardingUnit
-R7
+R0
 !i10b 1
-!s100 zH6P=jlOP9ndiMKU6haPX1
-ICj3kWK21JNj=Adm3jIPdH0
+!s100 7@KB<DN:XY[^:iUZnQ[LU3
+IUKVzB9nnZX9]6YkmldfBV3
 R1
 R2
-R3
+w1573857884
 8C:\Users\pschr\Desktop\ECE 552\Project\proj_phase2\CPU\project_phase2\forward.v
 FC:\Users\pschr\Desktop\ECE 552\Project\proj_phase2\CPU\project_phase2\forward.v
 L0 1
@@ -220,7 +241,7 @@ R4
 r1
 !s85 0
 31
-R10
+R5
 !s107 C:\Users\pschr\Desktop\ECE 552\Project\proj_phase2\CPU\project_phase2\forward.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:\Users\pschr\Desktop\ECE 552\Project\proj_phase2\CPU\project_phase2\forward.v|
 !s101 -O0
@@ -228,7 +249,7 @@ R10
 R6
 n@forwarding@unit
 vfull_adder_1bit
-R7
+R0
 !i10b 1
 !s100 `]]AEm5YM9=z>7KS^9dFC3
 In;16R3X?BBIZ`eU=H@71P3
@@ -242,14 +263,14 @@ R4
 r1
 !s85 0
 31
-R10
+R5
 !s107 C:/Users/pschr/Desktop/ECE 552/Project/proj_phase2/CPU/project_phase2/full_adder_1bit.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/pschr/Desktop/ECE 552/Project/proj_phase2/CPU/project_phase2/full_adder_1bit.v|
 !s101 -O0
 !i113 1
 R6
 vhazard
-R7
+R0
 !i10b 1
 !s100 [5JYAcK_J6XTU?cEaiG7I3
 I9[N[ZnZ3WHo;`6PK<7FjO0
@@ -263,14 +284,14 @@ R4
 r1
 !s85 0
 31
-R10
+R5
 !s107 C:/Users/pschr/Desktop/ECE 552/Project/proj_phase2/CPU/project_phase2/hazard.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/pschr/Desktop/ECE 552/Project/proj_phase2/CPU/project_phase2/hazard.v|
 !s101 -O0
 !i113 1
 R6
 vIDEX_ff
-R7
+R0
 !i10b 1
 !s100 2Qoc912935C<j8Q2o<k<H0
 IVWiiFhaOj8jZN4Y^GlAPV3
@@ -284,7 +305,7 @@ R4
 r1
 !s85 0
 31
-R10
+R5
 !s107 C:\Users\pschr\Desktop\ECE 552\Project\proj_phase2\CPU\project_phase2\IDEX_ff.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:\Users\pschr\Desktop\ECE 552\Project\proj_phase2\CPU\project_phase2\IDEX_ff.v|
 !s101 -O0
@@ -292,13 +313,13 @@ R10
 R6
 n@i@d@e@x_ff
 vIFID_ff
-R7
+R0
 !i10b 1
-!s100 d5iWiZELnhc>]S:W4oBBe0
-IE8f3cAec6TnbzcgaCOl^e0
+!s100 zg1OAOX[k6R_c>DAEJoIA1
+I:cBHZmcISWcG93a7WWL_o1
 R1
 R2
-w1573849096
+w1573852640
 8C:\Users\pschr\Desktop\ECE 552\Project\proj_phase2\CPU\project_phase2\IFID_ff.v
 FC:\Users\pschr\Desktop\ECE 552\Project\proj_phase2\CPU\project_phase2\IFID_ff.v
 L0 3
@@ -306,7 +327,7 @@ R4
 r1
 !s85 0
 31
-R10
+R5
 !s107 C:\Users\pschr\Desktop\ECE 552\Project\proj_phase2\CPU\project_phase2\IFID_ff.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:\Users\pschr\Desktop\ECE 552\Project\proj_phase2\CPU\project_phase2\IFID_ff.v|
 !s101 -O0
@@ -314,7 +335,7 @@ R10
 R6
 n@i@f@i@d_ff
 vmemory1c
-R7
+R0
 !i10b 1
 !s100 QenLkEhR^cbYNb`DMY:h>3
 IO^IJ[Hh9?hf``ID@nJUK@2
@@ -328,20 +349,20 @@ R4
 r1
 !s85 0
 31
-R10
+R5
 !s107 C:/Users/pschr/Desktop/ECE 552/Project/proj_phase2/CPU/project_phase2/memory.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/pschr/Desktop/ECE 552/Project/proj_phase2/CPU/project_phase2/memory.v|
 !s101 -O0
 !i113 1
 R6
 vMEMWB_ff
-R7
+R0
 !i10b 1
-!s100 nEk:4^OHBeUkde8aZZCIb2
-IbElefA880icT`Z;clf;8F2
+!s100 5^P>miB_<`:J>B``2B`e`0
+Id^IVoo4im<ZF0FkSbj<hY2
 R1
 R2
-w1573849440
+w1573851276
 8C:\Users\pschr\Desktop\ECE 552\Project\proj_phase2\CPU\project_phase2\MEMWB_ff.v
 FC:\Users\pschr\Desktop\ECE 552\Project\proj_phase2\CPU\project_phase2\MEMWB_ff.v
 L0 3
@@ -349,7 +370,7 @@ R4
 r1
 !s85 0
 31
-R10
+R5
 !s107 C:\Users\pschr\Desktop\ECE 552\Project\proj_phase2\CPU\project_phase2\MEMWB_ff.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:\Users\pschr\Desktop\ECE 552\Project\proj_phase2\CPU\project_phase2\MEMWB_ff.v|
 !s101 -O0
@@ -358,28 +379,28 @@ R6
 n@m@e@m@w@b_ff
 vpcc
 R13
-R7
+R0
 !i10b 1
-!s100 fJF0;?HNoQ;al=ZS@>SWa3
-I]gcF:`;=2oB4`[n8S;O?Z0
+!s100 TmY4]Y=28UIf[SBNA@PjZ2
+ICET`WKC]OmTPUz=22MnZ11
 R1
 !s105 PCcontrol_sv_unit
 S1
 R2
-R3
-8C:/Users/pschr/Desktop/ECE 552/Project/proj_phase2/CPU/project_phase2/PCcontrol.sv
-FC:/Users/pschr/Desktop/ECE 552/Project/proj_phase2/CPU/project_phase2/PCcontrol.sv
+w1573858688
+8C:\Users\pschr\Desktop\ECE 552\Project\proj_phase2\CPU\project_phase2\PCcontrol.sv
+FC:\Users\pschr\Desktop\ECE 552\Project\proj_phase2\CPU\project_phase2\PCcontrol.sv
 L0 1
 R4
 r1
 !s85 0
 31
-R10
-!s107 C:/Users/pschr/Desktop/ECE 552/Project/proj_phase2/CPU/project_phase2/PCcontrol.sv|
-!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/pschr/Desktop/ECE 552/Project/proj_phase2/CPU/project_phase2/PCcontrol.sv|
+R5
+!s107 C:\Users\pschr\Desktop\ECE 552\Project\proj_phase2\CPU\project_phase2\PCcontrol.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:\Users\pschr\Desktop\ECE 552\Project\proj_phase2\CPU\project_phase2\PCcontrol.sv|
 !s101 -O0
 !i113 1
-R21
+R19
 vpipe_ff
 R7
 !i10b 1
@@ -447,28 +468,28 @@ R6
 n@p@s@a_tb
 vReadDecoder_4_16
 R13
-R14
+R7
 !i10b 1
 !s100 DZJzZDm8:20fMF]9;QR_>0
 IanF6KCh2Rf_GOzkZ22H]m2
 R1
-R15
+R14
 S1
 R2
 R3
+R15
 R16
-R17
 L0 136
 R4
 r1
 !s85 0
 31
+R10
+R17
 R18
-R19
-R20
 !s101 -O0
 !i113 1
-R21
+R19
 n@read@decoder_4_16
 vreduction
 R7
@@ -493,56 +514,56 @@ R10
 R6
 vRegister
 R13
-R14
+R7
 !i10b 1
 !s100 D3Ek1<Hl`Oel034kIYF4[1
 I]@PCP5Pn3CT<6Kn:fb@mV1
 R1
-R15
+R14
 S1
 R2
 R3
+R15
 R16
-R17
 L0 63
 R4
 r1
 !s85 0
 31
+R10
+R17
 R18
-R19
-R20
 !s101 -O0
 !i113 1
-R21
+R19
 n@register
 vRegisterFile
 R13
-R14
+R7
 !i10b 1
 !s100 mZX;1;Dc;oj<M2R]K0JVD3
 IDQNZ37TiR9e2m42<OXXBV3
 R1
-R15
+R14
 S1
 R2
 R3
+R15
 R16
-R17
 L0 1
 R4
 r1
 !s85 0
 31
+R10
+R17
 R18
-R19
-R20
 !s101 -O0
 !i113 1
-R21
+R19
 n@register@file
 vShifter
-R14
+R7
 !i10b 1
 !s100 =^P6AFldFiNn1CcIXEcbE3
 I4PTmL15_WQ96B9b>GWcR72
@@ -556,7 +577,7 @@ R4
 r1
 !s85 0
 31
-R18
+R10
 !s107 C:/Users/pschr/Desktop/ECE 552/Project/proj_phase2/CPU/project_phase2/Shifter.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/pschr/Desktop/ECE 552/Project/proj_phase2/CPU/project_phase2/Shifter.v|
 !s101 -O0
@@ -565,26 +586,26 @@ R6
 n@shifter
 vWriteDecoder_4_16
 R13
-R14
+R7
 !i10b 1
 !s100 9]R@`FDIbmDJHWCL5e]SK1
 I[LASB5IKPV4H30m>dJ;7F0
 R1
-R15
+R14
 S1
 R2
 R3
+R15
 R16
-R17
 L0 114
 R4
 r1
 !s85 0
 31
+R10
+R17
 R18
-R19
-R20
 !s101 -O0
 !i113 1
-R21
+R19
 n@write@decoder_4_16
