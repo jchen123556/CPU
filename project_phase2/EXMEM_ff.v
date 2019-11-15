@@ -33,8 +33,8 @@ module EXMEM_ff (q_Branch, d_Branch, q_MemRead, d_MemRead, q_MemWrite, d_MemWrit
 
     // register signals //
     input [3:0] d_RegRd;			output [3:0] q_RegRd;
-    input [15:0] d_RegRs;			output [15:0] q_RegRs;
-    input [15:0] d_RegRt;			output [15:0] q_RegRt;
+    input [3:0] d_RegRs;			output [3:0] q_RegRs;
+    input [3:0] d_RegRt;			output [3:0] q_RegRt;
 	input [15:0] d_RegRsVal;		output [15:0] q_RegRsVal;
 	input [15:0] d_RegRtVal;		output [15:0] q_RegRtVal;
 

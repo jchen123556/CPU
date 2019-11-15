@@ -31,8 +31,8 @@ module cpu(clk, rst_n, hlt, pc_out);
 
 
     //// Pipeline flop test ////
-	wire [15:0] IF_pc_inc, IF_instr, IF_rs_reg;
-	wire [15:0] ID_pc_inc, ID_instr;
+	wire [15:0] IF_pc_inc, IF_pc_out, IF_instr, IF_rs_reg;
+	wire [15:0] ID_pc_inc, ID_pc_out, ID_instr;
 	
 	wire ID_RegDst, ID_ALUOp1, ID_ALUOp0, ID_ALUSrc;
 	wire ID_Branch, ID_MemRead, ID_MemWrite;
@@ -62,9 +62,9 @@ module cpu(clk, rst_n, hlt, pc_out);
 	wire [15:0] WB_alu_data, WB_lw_data, WB_pc_inc;
 	wire [7:0] WB_imm8;
 	
-    IFID_ff ff_ifid(.d_PC(IF_pc_inc), .d_instr(IF_instr), .d_rs_reg(), 
-					.q_PC(ID_pc_inc), .q_instr(ID_instr), .q_rs_reg(), 
-					.wen(), .clk(clk), .rst(rst));
+    IFID_ff ff_ifid(.d_PC(IF_pc_inc), .d_pc_out(IF_pc_out), .d_instr(IF_instr), .d_rs_reg(), 
+					.q_PC(ID_pc_inc), .q_pc_out(ID_pc_out), .q_instr(ID_instr), .q_rs_reg(), 
+					.wen(1), .clk(clk), .rst(rst));
 	
 	IDEX_ff ff_idex(.d_RegDst(ID_RegDst), .d_ALUOp1(ID_ALUOp1), .d_ALUOp0(ID_ALUOp0), .d_ALUSrc(ID_ALUSrc),
 				    .q_RegDst(EX_RegDst), .q_ALUOp1(EX_ALUOp1), .q_ALUOp0(EX_ALUOp0), .q_ALUSrc(EX_ALUSrc),
@@ -80,7 +80,7 @@ module cpu(clk, rst_n, hlt, pc_out);
 					.q_pc_inc(EX_pc_inc),
 					.d_imm8(ID_imm8), .d_instr(ID_instr), .d_Opcode(ID_Opcode),
 					.q_imm8(EX_imm8), .q_instr(EX_instr), .q_Opcode(EX_Opcode),
-					.wen(), .clk(clk), .rst(rst));
+					.wen(1), .clk(clk), .rst(rst));
 				
 	EXMEM_ff ff_exmem(.d_Branch(EX_Branch), .d_MemRead(EX_MemRead), .d_MemWrite(EX_MemWrite),
 				      .q_Branch(MEM_Branch), .q_MemRead(MEM_MemRead), .q_MemWrite(MEM_MemWrite),
@@ -94,7 +94,7 @@ module cpu(clk, rst_n, hlt, pc_out);
 					  .q_pc_inc(MEM_pc_inc),
 					  .d_imm8(EX_imm8), .d_alu_data(EX_alu_data), .d_Opcode(EX_Opcode),
 					  .q_imm8(MEM_imm8), .q_alu_data(MEM_alu_data), .q_Opcode(MEM_Opcode),
-					  .wen(), .clk(clk), .rst(rst));
+					  .wen(1), .clk(clk), .rst(rst));
 				
 	MEMWB_ff ff_memwb(.d_RegWrite(MEM_RegWrite), .d_MemtoReg(MEM_MemtoReg),
 				      .q_RegWrite(WB_RegWrite), .q_MemtoReg(WB_MemtoReg), 
@@ -108,10 +108,11 @@ module cpu(clk, rst_n, hlt, pc_out);
 					  .q_imm8(WB_imm8), .q_alu_data(WB_alu_data), .q_Opcode(WB_Opcode),
 					  .d_lw_data(MEM_lw_data),
 					  .q_lw_data(WB_lw_data),
-					  .wen(), .clk(clk), .rst(rst));
+					  .wen(1), .clk(clk), .rst(rst));
 
     assign IF_instr = instr;
-	assign IF_pc = pc_inc;	// TODO: make sure this is correct
+	assign IF_pc_inc = pc_inc;	// TODO: make sure this is correct
+	assign IF_pc_out = pc_out;
 	
 	assign ID_MemRead = memr;
 	assign ID_MemWrite = memw;
@@ -139,11 +140,17 @@ module cpu(clk, rst_n, hlt, pc_out);
 	//assign pc_ctr here... including branch conditions
 	Register pc_register(.clk(clk), .rst(!rst_n), .D(pc_next), .WriteReg(1'b1), .ReadEnable1(1'b1), .ReadEnable2(1'b0), .Bitline1(pc_output), .Bitline2());
 	
-	pcc control(.clk(clk), .rst_n(rst_n), .fl(fl), .instr(instr), .rs_reg(rs_reg), .pc_output(pc_output), .pc_next(pc_next), .pc_inc(pc_inc), .hlt(hlt)); // TODO extract code to split stages
+	// IF Stage //
+	cla_16bit pc_step(.Sum(pc_inc), .Ovfl(), .A(pc_output), .B(16'h0002), .Cin(1'b0));
+	
+	// ID Stage // 
+	pcc control(.clk(clk), .rst_n(rst_n), .fl(fl), .instr(ID_instr), .rs_reg(rs_reg), .pc_output(ID_pc_out), .pc_next(pc_next), .pc_inc(ID_pc_inc), .hlt(hlt)); // TODO extract code to split stages
 
+	// IF Stage //
 	// Fetch instruction from instruction mem
 	memory1c ins_mem(.data_out(instr), .data_in(16'h0000), .addr(pc_output), .enable(1'b1), .wr(1'b0), .clk(clk), .rst(!rst_n));
 	
+	// ID Stage //
 	// assign inputs
 	assign opcode = ID_instr[15:12];
 	assign rd = ID_instr[11:8];
@@ -152,6 +159,7 @@ module cpu(clk, rst_n, hlt, pc_out);
 	assign imm_8_bit = ID_instr[7:0];
 	assign imm_9_bit = ID_instr[8:0]; // not used
 
+    // ID Stage //
 	// assign control signals
 	assign memw = (opcode == 4'b1001);
 	assign memr = (opcode[3:1] == 3'b100);

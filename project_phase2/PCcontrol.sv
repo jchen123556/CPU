@@ -1,4 +1,4 @@
-module pcc(input clk, input rst_n, input [2:0] fl, input [15:0] instr, input [15:0] rs_reg, input [15:0] pc_output, output [15:0] pc_next, output [15:0] pc_inc, output hlt);
+module pcc(input clk, input rst_n, input [2:0] fl, input [15:0] instr, input [15:0] rs_reg, input [15:0] pc_output, output [15:0] pc_next, input [15:0] pc_inc, output hlt);
 	wire [15:0] pc_br, pc_bs;
 	wire [3:0] opcode;
 	wire [2:0] F, C;
@@ -9,7 +9,7 @@ module pcc(input clk, input rst_n, input [2:0] fl, input [15:0] instr, input [15
 	assign opcode = instr[15:12];
 	
 	assign pc_next = (hlt) ? pc_output : (!br) ? pc_inc : (opcode[0] == 1'b0) ? pc_bs : pc_br;
-	cla_16bit pc_step(.Sum(pc_inc), .Ovfl(), .A(pc_output), .B(16'h0002), .Cin(1'b0));
+	//cla_16bit pc_step(.Sum(pc_inc), .Ovfl(), .A(pc_output), .B(16'h0002), .Cin(1'b0));
         cla_16bit branch_sum(.Sum(pc_bs), .Ovfl(), .A(pc_inc), .B({{{6{instr[8]}}, instr[8:0]}, 1'b0}), .Cin(1'b0));
 	assign pc_br = rs_reg;
 
