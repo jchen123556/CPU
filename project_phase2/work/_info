@@ -1,0 +1,543 @@
+m255
+K4
+z2
+!s11f vlog 2019.2 2019.04, Apr 16 2019
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+d/filespace/p/ptschroeder/ece551/MooreMachines/FinalProject
+vALU
+!s110 1573775991
+!i10b 1
+!s100 BzEZJ;GR=lSiUKX`hKFYZ1
+!s11b 4IBjnl4P>3WVXEjJo_:@W1
+IGfFWdXL8AA6L6^l0`MW:c2
+Z0 VDg1SIo80bB@j0V0VzS_@n1
+Z1 d/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2
+Z2 w1573770583
+8/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/ALU.v
+F/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/ALU.v
+L0 1
+Z3 OP;L;2019.2;69
+r1
+!s85 0
+31
+Z4 !s108 1573775991.000000
+!s107 /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/ALU.v|
+!s90 -reportprogress|300|-work|work|-stats=none|/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/ALU.v|
+!i113 1
+Z5 o-work work
+Z6 tCvgOpt 0
+n@a@l@u
+vALU_tb
+Z7 !s110 1573775993
+!i10b 1
+!s100 U7jJNCQIhY61U;31db7_Q0
+!s11b Bb`bAWR9z9?==>`Y?Zf<i1
+IbW1JHHVLCZk8=h<HdA3^S0
+R0
+R1
+Z8 w1573770582
+Z9 8/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/psatest.v
+Z10 F/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/psatest.v
+L0 34
+R3
+r1
+!s85 0
+31
+Z11 !s108 1573775993.000000
+Z12 !s107 /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/psatest.v|
+Z13 !s90 -reportprogress|300|-work|work|-stats=none|/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/psatest.v|
+!i113 1
+R5
+R6
+n@a@l@u_tb
+vBitCell
+Z14 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+Z15 !s110 1573775994
+!i10b 1
+!s100 baUFiPcgWAEz2CmMe293k2
+!s11b nR@g:SU8`zCB7WMHF]7;70
+I0QX]]=bbYcgB6WDHO=1cS1
+R0
+S1
+R1
+Z16 w1573770581
+Z17 8/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/tempRegister.sv
+Z18 F/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/tempRegister.sv
+L0 27
+R3
+r1
+!s85 0
+31
+Z19 !s108 1573775994.000000
+Z20 !s107 /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/tempRegister.sv|
+Z21 !s90 -reportprogress|300|-work|work|-sv|-stats=none|/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/tempRegister.sv|
+!i113 1
+Z22 o-work work -sv
+R6
+n@bit@cell
+vcla_16bit
+Z23 !s110 1573775992
+!i10b 1
+!s100 N9oeZg0Gd6dMz8F^059f?3
+!s11b m0Jn?iNYnZa9hZ<?a3V]U1
+IiF7YPzia5A`TJlG[f[HB]3
+R0
+R1
+R2
+8/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/cla_16bit.v
+F/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/cla_16bit.v
+L0 1
+R3
+r1
+!s85 0
+31
+Z24 !s108 1573775992.000000
+!s107 /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/cla_16bit.v|
+!s90 -reportprogress|300|-work|work|-stats=none|/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/cla_16bit.v|
+!i113 1
+R5
+R6
+vcla_4bit
+R23
+!i10b 1
+!s100 boX4j[M=8430dTVN]V?if2
+!s11b YLIinCBbbWzW1TN6^0OL@0
+IGFMd4zg_Mn:=B_=73=0_R0
+R0
+R1
+R2
+8/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/cla_4bit.v
+F/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/cla_4bit.v
+L0 1
+R3
+r1
+!s85 0
+31
+R4
+!s107 /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/cla_4bit.v|
+!s90 -reportprogress|300|-work|work|-stats=none|/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/cla_4bit.v|
+!i113 1
+R5
+R6
+vcpu
+R23
+!i10b 1
+!s100 azZQU2jZCzYNfGdBd3<0Z2
+!s11b Q8Cbh1KTKE=7b>68W1d]D1
+IAg]jBi:C9<QmHa`]l6YP12
+R0
+R1
+R2
+8/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/cpu_backup.v
+F/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/cpu_backup.v
+L0 1
+R3
+r1
+!s85 0
+31
+R24
+!s107 /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/cpu_backup.v|
+!s90 -reportprogress|300|-work|work|-stats=none|/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/cpu_backup.v|
+!i113 1
+R5
+R6
+vdff
+R23
+!i10b 1
+!s100 Z9V@F2c50oH6kZfdURZd60
+Z25 !s11b zJ]]b^6lFmZ@]7WPMLFn?1
+INI<2=jk?IF6LT8_GBdm>m2
+R0
+R1
+R8
+8/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/D-Flip-Flop.v
+F/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/D-Flip-Flop.v
+L0 3
+R3
+r1
+!s85 0
+31
+R24
+!s107 /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/D-Flip-Flop.v|
+!s90 -reportprogress|300|-work|work|-stats=none|/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/D-Flip-Flop.v|
+!i113 1
+R5
+R6
+vEXMEM_ff
+R15
+!i10b 1
+!s100 <omAQ0gaWSGZAKMj``UU22
+R25
+I9dC;6:94BP><]V1AhGilI1
+R0
+R1
+w1573774310
+8/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/EXMEM_ff.v
+F/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/EXMEM_ff.v
+L0 3
+R3
+r1
+!s85 0
+31
+R19
+!s107 /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/EXMEM_ff.v|
+!s90 -reportprogress|300|-work|work|-stats=none|/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/EXMEM_ff.v|
+!i113 1
+R5
+R6
+n@e@x@m@e@m_ff
+vfull_adder_1bit
+R23
+!i10b 1
+!s100 Ko0TfG[@QRVHed`[89o5c1
+!s11b EIaOVK6X3EV^@_F5hM:f[3
+I3DhfSzZm5E4k=V@m_<FXD3
+R0
+R1
+R8
+8/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/full_adder_1bit.v
+F/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/full_adder_1bit.v
+L0 1
+R3
+r1
+!s85 0
+31
+R24
+!s107 /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/full_adder_1bit.v|
+!s90 -reportprogress|300|-work|work|-stats=none|/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/full_adder_1bit.v|
+!i113 1
+R5
+R6
+vIDEX_ff
+R15
+!i10b 1
+!s100 X2f4eQ93hBzza__dR^cfK3
+R25
+IXhB>2_1WPfO=hYJ2m<iFG1
+R0
+R1
+w1573774312
+8/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/IDEX_ff.v
+F/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/IDEX_ff.v
+L0 3
+R3
+r1
+!s85 0
+31
+R19
+!s107 /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/IDEX_ff.v|
+!s90 -reportprogress|300|-work|work|-stats=none|/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/IDEX_ff.v|
+!i113 1
+R5
+R6
+n@i@d@e@x_ff
+vIFID_ff
+R15
+!i10b 1
+!s100 :cfJTbl6N8b2Bj4oP>[>z3
+!s11b RYLVU6=mUCdhVU_HH;TfF2
+Ia:18Z?`LP8_6bT;I`i`om0
+R0
+R1
+w1573775989
+8/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/IFID_ff.v
+F/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/IFID_ff.v
+L0 3
+R3
+r1
+!s85 0
+31
+R19
+!s107 /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/IFID_ff.v|
+!s90 -reportprogress|300|-work|work|-stats=none|/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/IFID_ff.v|
+!i113 1
+R5
+R6
+n@i@f@i@d_ff
+vmemory1c
+R7
+!i10b 1
+!s100 h6eh4_:3zEommiZn61e=I0
+!s11b Q1^>O>zUYoRBNM0gU;^Xd2
+IG?VgJzJ_=ILVTiG:]cJW00
+R0
+R1
+R8
+8/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/memory.v
+F/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/memory.v
+L0 31
+R3
+r1
+!s85 0
+31
+R24
+!s107 /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/memory.v|
+!s90 -reportprogress|300|-work|work|-stats=none|/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/memory.v|
+!i113 1
+R5
+R6
+vMEMWB_ff
+!s110 1573774437
+!i10b 1
+!s100 []1@P3cgXeA@Xih]>3COl3
+R25
+I_SF=8h<@J>hmd9>j:4>Nk3
+R0
+R1
+w1573774317
+8/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/MEMWB_ff.v
+F/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/MEMWB_ff.v
+L0 3
+R3
+r1
+!s85 0
+31
+!s108 1573774437.000000
+!s107 /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/MEMWB_ff.v|
+!s90 -reportprogress|300|-work|work|-stats=none|/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/MEMWB_ff.v|
+!i113 1
+R5
+R6
+n@m@e@m@w@b_ff
+vpcc
+R14
+R7
+!i10b 1
+!s100 JeDTfDnm1Z;G@oSJO1U0Q3
+!s11b KXF]IBm;XfY2HXO198o;62
+I4Ii5CT]7`1XOCk0IW^IOD0
+R0
+S1
+R1
+R8
+8/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/PCcontrol.sv
+F/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/PCcontrol.sv
+L0 1
+R3
+r1
+!s85 0
+31
+R11
+!s107 /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/PCcontrol.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/PCcontrol.sv|
+!i113 1
+R22
+R6
+vpipe_ff
+R7
+!i10b 1
+!s100 hhkf>]0ISQ_>UC1SXhNfE0
+R25
+I5YN^9Efnj3FVS1fSIOm0L1
+R0
+R1
+w1573774244
+8/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/pipe_ff.v
+F/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/pipe_ff.v
+L0 3
+R3
+r1
+!s85 0
+31
+R11
+!s107 /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/pipe_ff.v|
+!s90 -reportprogress|300|-work|work|-stats=none|/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/pipe_ff.v|
+!i113 1
+R5
+R6
+vPSA_16bit
+R7
+!i10b 1
+!s100 NDPXh0kc]SVCfinenJ<_z2
+!s11b [[I?`RTi<<S=ZJanf6ToD2
+IlC_YGEHf4JnBQm5057P_13
+R0
+R1
+R8
+8/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/PSA_16bit.v
+F/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/PSA_16bit.v
+L0 1
+R3
+r1
+!s85 0
+31
+R11
+!s107 /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/PSA_16bit.v|
+!s90 -reportprogress|300|-work|work|-stats=none|/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/PSA_16bit.v|
+!i113 1
+R5
+R6
+n@p@s@a_16bit
+vPSA_tb
+R7
+!i10b 1
+!s100 BjOfo:IaEaB^c`f3nI89M2
+!s11b IG;8Mb6bWge6;Am6?mQg51
+I9Q@N1b317<VG49N4:dHO;2
+R0
+R1
+R8
+R9
+R10
+L0 1
+R3
+r1
+!s85 0
+31
+R11
+R12
+R13
+!i113 1
+R5
+R6
+n@p@s@a_tb
+vReadDecoder_4_16
+R14
+R15
+!i10b 1
+!s100 k;8l==;e6Qz9_ZWPfZF=;2
+!s11b R_9Q]Z^cd]Ff09A1_JN7D1
+I9T]PWzbh<ibMX<4m?^dOl2
+R0
+S1
+R1
+R16
+R17
+R18
+L0 61
+R3
+r1
+!s85 0
+31
+R19
+R20
+R21
+!i113 1
+R22
+R6
+n@read@decoder_4_16
+vreduction
+R7
+!i10b 1
+!s100 bji>h`ZOUQYm92?=hSk7P2
+!s11b YklF3I`ek50SUdHF;XoOA1
+I5ET?H05>g0Y:B?=l5UX8c0
+R0
+R1
+R16
+8/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/RED.v
+F/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/RED.v
+L0 1
+R3
+r1
+!s85 0
+31
+R11
+!s107 /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/RED.v|
+!s90 -reportprogress|300|-work|work|-stats=none|/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/RED.v|
+!i113 1
+R5
+R6
+vRegister
+R14
+R15
+!i10b 1
+!s100 UMd?U4[cn?aeX@Xb[M2@;0
+!s11b _@7P2g8Wi]Jj2?hHlGaD[2
+I]i47NZkUEYW@Bz@mJPBLc2
+R0
+S1
+R1
+R16
+R17
+R18
+L0 18
+R3
+r1
+!s85 0
+31
+R19
+R20
+R21
+!i113 1
+R22
+R6
+n@register
+vRegisterFile
+R14
+R15
+!i10b 1
+!s100 :5ko9I_Bhamg`0WOGlWkS0
+!s11b S8;6RIT8Qa5ODG4Wdzmh<1
+IzIec4KTYXPaLCN8l9nDbH1
+R0
+S1
+R1
+R16
+R17
+R18
+L0 1
+R3
+r1
+!s85 0
+31
+R19
+R20
+R21
+!i113 1
+R22
+R6
+n@register@file
+vShifter
+R15
+!i10b 1
+!s100 VR^N3kVQ8zJV8H7:n5RdT2
+!s11b e`z]B10IF:WIO2]CNQcnM3
+I=NHH:n98R<bUUc[8;C5[i2
+R0
+R1
+R16
+8/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/Shifter.v
+F/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/Shifter.v
+L0 1
+R3
+r1
+!s85 0
+31
+R19
+!s107 /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/Shifter.v|
+!s90 -reportprogress|300|-work|work|-stats=none|/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/Shifter.v|
+!i113 1
+R5
+R6
+n@shifter
+vWriteDecoder_4_16
+R14
+R15
+!i10b 1
+!s100 <XFiEOFIJ:B2b]U@6L0o_2
+!s11b GFlLLbO9gRl2O4Nh^OUci3
+ITYWL7bMOi>5Zh`a60zVZ>1
+R0
+S1
+R1
+R16
+R17
+R18
+L0 39
+R3
+r1
+!s85 0
+31
+R19
+R20
+R21
+!i113 1
+R22
+R6
+n@write@decoder_4_16

@@ -1,0 +1,175 @@
+/filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/Shifter.sv {1 {vlog -work work -sv -stats=none /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/Shifter.sv
+Model Technology ModelSim DE vlog 2019.2 Compiler 2019.04 Apr 16 2019
+-- Compiling module Shifter
+
+Top level modules:
+	Shifter
+
+} {} {}} /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/Register.sv {1 {vlog -work work -sv -stats=none /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/Register.sv
+Model Technology ModelSim DE vlog 2019.2 Compiler 2019.04 Apr 16 2019
+-- Compiling module RegisterFile
+-- Compiling module Register
+-- Compiling module BitCell
+-- Compiling module WriteDecoder_4_16
+-- Compiling module ReadDecoder_4_16
+
+Top level modules:
+	RegisterFile
+
+} {} {}} /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/full_adder_1bit.v {1 {vlog -work work -stats=none /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/full_adder_1bit.v
+Model Technology ModelSim DE vlog 2019.2 Compiler 2019.04 Apr 16 2019
+-- Compiling module full_adder_1bit
+
+Top level modules:
+	full_adder_1bit
+
+} {} {}} /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/PSA_16bit.v {1 {vlog -work work -stats=none /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/PSA_16bit.v
+Model Technology ModelSim DE vlog 2019.2 Compiler 2019.04 Apr 16 2019
+-- Compiling module PSA_16bit
+
+Top level modules:
+	PSA_16bit
+
+} {} {}} /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/ALU.v {1 {vlog -work work -stats=none /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/ALU.v
+Model Technology ModelSim DE vlog 2019.2 Compiler 2019.04 Apr 16 2019
+-- Compiling module ALU
+
+Top level modules:
+	ALU
+
+} {} {}} /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/MEMWB_ff.v {0 {vlog -work work -stats=none /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/MEMWB_ff.v
+Model Technology ModelSim DE vlog 2019.2 Compiler 2019.04 Apr 16 2019
+-- Compiling module MEMWB_ff
+** Error: /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/MEMWB_ff.v(24): In, out, or inout does not appear in port list: d_SignExtend.
+** Error: /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/MEMWB_ff.v(37): In, out, or inout does not appear in port list: q_SignExtend.
+** Error: /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/MEMWB_ff.v(14): In, out, or inout does not appear in port list: d_MemRead.
+** Error: /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/MEMWB_ff.v(15): In, out, or inout does not appear in port list: d_MemWrite.
+** Error: /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/MEMWB_ff.v(17): In, out, or inout does not appear in port list: d_RegisterRd.
+** Error: /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/MEMWB_ff.v(18): In, out, or inout does not appear in port list: d_RegisterRs.
+** Error: /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/MEMWB_ff.v(19): In, out, or inout does not appear in port list: d_RegisterRt.
+** Error: /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/MEMWB_ff.v(21): In, out, or inout does not appear in port list: d_RegWrite.
+** Error: /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/MEMWB_ff.v(23): In, out, or inout does not appear in port list: d_Branch.
+** Error: /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/MEMWB_ff.v(27): In, out, or inout does not appear in port list: q_MemRead.
+** Error: /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/MEMWB_ff.v(28): In, out, or inout does not appear in port list: q_MemWrite.
+** Error: /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/MEMWB_ff.v(30): In, out, or inout does not appear in port list: q_RegisterRd.
+** Error: /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/MEMWB_ff.v(31): In, out, or inout does not appear in port list: q_RegisterRs.
+** Error: /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/MEMWB_ff.v(32): In, out, or inout does not appear in port list: q_RegisterRt.
+** Error: /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/MEMWB_ff.v(34): In, out, or inout does not appear in port list: q_RegWrite.
+** Error: /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/MEMWB_ff.v(36): In, out, or inout does not appear in port list: q_Branch.
+
+} {4.0 20.0} {}} /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/RED.v {1 {vlog -work work -stats=none /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/RED.v
+Model Technology ModelSim DE vlog 2019.2 Compiler 2019.04 Apr 16 2019
+-- Compiling module reduction
+
+Top level modules:
+	reduction
+
+} {} {}} /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/psatest.v {1 {vlog -work work -stats=none /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/psatest.v
+Model Technology ModelSim DE vlog 2019.2 Compiler 2019.04 Apr 16 2019
+-- Compiling module PSA_tb
+-- Compiling module ALU_tb
+
+Top level modules:
+	PSA_tb
+	ALU_tb
+
+} {} {}} /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/cla_16bit.v {1 {vlog -work work -stats=none /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/cla_16bit.v
+Model Technology ModelSim DE vlog 2019.2 Compiler 2019.04 Apr 16 2019
+-- Compiling module cla_16bit
+
+Top level modules:
+	cla_16bit
+
+} {} {}} /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/RED.sv {1 {vlog -work work -sv -stats=none /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/RED.sv
+Model Technology ModelSim DE vlog 2019.2 Compiler 2019.04 Apr 16 2019
+-- Compiling module reduction
+
+Top level modules:
+	reduction
+
+} {} {}} /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/IFID_ff.v {1 {vlog -work work -stats=none /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/IFID_ff.v
+Model Technology ModelSim DE vlog 2019.2 Compiler 2019.04 Apr 16 2019
+-- Compiling module IFID_ff
+
+Top level modules:
+	IFID_ff
+
+} {} {}} /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/PCcontrol.sv {1 {vlog -work work -sv -stats=none /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/PCcontrol.sv
+Model Technology ModelSim DE vlog 2019.2 Compiler 2019.04 Apr 16 2019
+-- Compiling module pcc
+
+Top level modules:
+	pcc
+
+} {} {}} /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/savereg.sv {1 {vlog -work work -sv -stats=none /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/savereg.sv
+Model Technology ModelSim DE vlog 2019.2 Compiler 2019.04 Apr 16 2019
+-- Compiling module RegisterFile
+-- Compiling module Register
+-- Compiling module BitCell
+-- Compiling module WriteDecoder_4_16
+-- Compiling module ReadDecoder_4_16
+
+Top level modules:
+	RegisterFile
+
+} {} {}} /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/pipe_ff.v {1 {vlog -work work -stats=none /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/pipe_ff.v
+Model Technology ModelSim DE vlog 2019.2 Compiler 2019.04 Apr 16 2019
+-- Compiling module pipe_ff
+
+Top level modules:
+	pipe_ff
+
+} {} {}} /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/memory.v {1 {vlog -work work -stats=none /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/memory.v
+Model Technology ModelSim DE vlog 2019.2 Compiler 2019.04 Apr 16 2019
+-- Compiling module memory1c
+
+Top level modules:
+	memory1c
+
+} {} {}} /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/cla_4bit.v {1 {vlog -work work -stats=none /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/cla_4bit.v
+Model Technology ModelSim DE vlog 2019.2 Compiler 2019.04 Apr 16 2019
+-- Compiling module cla_4bit
+
+Top level modules:
+	cla_4bit
+
+} {} {}} /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/D-Flip-Flop.v {1 {vlog -work work -stats=none /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/D-Flip-Flop.v
+Model Technology ModelSim DE vlog 2019.2 Compiler 2019.04 Apr 16 2019
+-- Compiling module dff
+
+Top level modules:
+	dff
+
+} {} {}} /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/Shifter.v {1 {vlog -work work -stats=none /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/Shifter.v
+Model Technology ModelSim DE vlog 2019.2 Compiler 2019.04 Apr 16 2019
+-- Compiling module Shifter
+
+Top level modules:
+	Shifter
+
+} {} {}} /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/cpu_backup.v {1 {vlog -work work -stats=none /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/cpu_backup.v
+Model Technology ModelSim DE vlog 2019.2 Compiler 2019.04 Apr 16 2019
+-- Compiling module cpu
+
+Top level modules:
+	cpu
+
+} {} {}} /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/tempRegister.sv {1 {vlog -work work -sv -stats=none /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/tempRegister.sv
+Model Technology ModelSim DE vlog 2019.2 Compiler 2019.04 Apr 16 2019
+-- Compiling module RegisterFile
+-- Compiling module Register
+-- Compiling module BitCell
+-- Compiling module WriteDecoder_4_16
+-- Compiling module ReadDecoder_4_16
+
+Top level modules:
+	RegisterFile
+
+} {} {}} /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/EXMEM_ff.v {1 {vlog -work work -stats=none /filespace/p/ptschroeder/cs552/p2/CPU/project_phase2/EXMEM_ff.v
+Model Technology ModelSim DE vlog 2019.2 Compiler 2019.04 Apr 16 2019
+-- Compiling module EXMEM_ff
+
+Top level modules:
+	EXMEM_ff
+
+} {} {}}

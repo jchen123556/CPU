@@ -30,7 +30,7 @@ module cpu(clk, rst_n, hlt, pc_out);
 
 	//// Pipeline flop test ////
 
-	/*// IF/ID Pipeline Stage //
+	// IF/ID Pipeline Stage //
 	dff ff_ifid_pc(.q(), .d(), .wen(), .clk(), .rst());
 	dff ff_ifid_instr(.q(), .d(), .wen(), .clk(), .rst());
 
@@ -44,14 +44,13 @@ module cpu(clk, rst_n, hlt, pc_out);
 	dff ff_idex_regRd(.q(), .d(), .wen(), .clk(), .rst());
 	dff ff_idex_regRs(.q(), .d(), .wen(), .clk(), .rst());
 	dff ff_idex_regRt(.q(), .d(), .wen(), .clk(), .rst());
-	dff ff_idex_regwrite(.q(), .d(), .wen(), .clk(), .rst());
 
 	// MEM/WB Pipeline Stage //
 	dff ff_memwb_mcntrl(.q(), .d(), .wen(), .clk(), .rst());
 	dff ff_memwb_wbcntrl(.q(), .d(), .wen(), .clk(), .rst());
 
 	// EX/MEM Pipeline Stage //
-	dff ff_exmem_wbcntrl(.q(), .d(), .wen(), .clk(), .rst());*/
+	dff ff_exmem_wbcntrl(.q(), .d(), .wen(), .clk(), .rst());
 
 
 
