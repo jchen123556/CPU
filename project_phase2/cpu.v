@@ -28,48 +28,129 @@ module cpu(clk, rst_n, hlt, pc_out);
 
 
 
-	//// Pipeline flop test ////
-
-	/*// IF/ID Pipeline Stage //
-	dff ff_ifid_pc(.q(), .d(), .wen(), .clk(), .rst());
-	dff ff_ifid_instr(.q(), .d(), .wen(), .clk(), .rst());
-
-	// ID/EX Pipeline Stage //
-	dff ff_idex_excntrl(.q(), .d(), .wen(), .clk(), .rst());
-	dff ff_idex_mcntrl(.q(), .d(), .wen(), .clk(), .rst());
-	dff ff_idex_wbcntrl(.q(), .d(), .wen(), .clk(), .rst());
-
-	dff ff_idex_memread(.q(), .d(), .wen(), .clk(), .rst());
-	dff ff_idex_memwrite(.q(), .d(), .wen(), .clk(), .rst());
-	dff ff_idex_regRd(.q(), .d(), .wen(), .clk(), .rst());
-	dff ff_idex_regRs(.q(), .d(), .wen(), .clk(), .rst());
-	dff ff_idex_regRt(.q(), .d(), .wen(), .clk(), .rst());
-	dff ff_idex_regwrite(.q(), .d(), .wen(), .clk(), .rst());
-
-	// MEM/WB Pipeline Stage //
-	dff ff_memwb_mcntrl(.q(), .d(), .wen(), .clk(), .rst());
-	dff ff_memwb_wbcntrl(.q(), .d(), .wen(), .clk(), .rst());
-
-	// EX/MEM Pipeline Stage //
-	dff ff_exmem_wbcntrl(.q(), .d(), .wen(), .clk(), .rst());*/
 
 
+    //// Pipeline flop test ////
+	wire [15:0] IF_pc_inc, IF_instr, IF_rs_reg;
+	wire [15:0] ID_pc_inc, ID_instr;
+	
+	wire ID_RegDst, ID_ALUOp1, ID_ALUOp0, ID_ALUSrc;
+	wire ID_Branch, ID_MemRead, ID_MemWrite;
+	wire ID_RegWrite, ID_MemtoReg;
+	wire [3:0] ID_RegRd, ID_RegRs, ID_RegRt, ID_Opcode;
+	wire [15:0] ID_RegRsVal, ID_RegRtVal;
+	wire [7:0] ID_imm8;
+	
+	wire EX_RegDst, EX_ALUOp1, EX_ALUOp0, EX_ALUSrc;
+	wire EX_Branch, EX_MemRead, EX_MemWrite;
+	wire EX_RegWrite, EX_MemtoReg;
+	wire [3:0] EX_RegRd, EX_RegRs, EX_RegRt, EX_Opcode;
+	wire [15:0] EX_instr, EX_alu_data, EX_RegRsVal, EX_RegRtVal;
+	wire [15:0] EX_pc_inc;
+	wire [7:0] EX_imm8;
+	
+	wire MEM_Branch, MEM_MemRead, MEM_MemWrite;
+	wire MEM_RegWrite, MEM_MemtoReg;
+	wire [3:0] MEM_RegRd, MEM_RegRs, MEM_RegRt, MEM_Opcode;
+	wire [15:0] MEM_RegRsVal, MEM_RegRtVal;
+	wire [15:0] MEM_alu_data, MEM_lw_data, MEM_pc_inc;
+	wire [7:0] MEM_imm8;
+	
+	wire WB_RegWrite, WB_MemtoReg;
+	wire [3:0] WB_RegRd, WB_RegRs, WB_RegRt, WB_Opcode;
+	wire [15:0] WB_RegRsVal, WB_RegRtVal;
+	wire [15:0] WB_alu_data, WB_lw_data, WB_pc_inc;
+	wire [7:0] WB_imm8;
+	
+    IFID_ff ff_ifid(.d_PC(IF_pc_inc), .d_instr(IF_instr), .d_rs_reg(), 
+					.q_PC(ID_pc_inc), .q_instr(ID_instr), .q_rs_reg(), 
+					.wen(), .clk(clk), .rst(rst));
+	
+	IDEX_ff ff_idex(.d_RegDst(ID_RegDst), .d_ALUOp1(ID_ALUOp1), .d_ALUOp0(ID_ALUOp0), .d_ALUSrc(ID_ALUSrc),
+				    .q_RegDst(EX_RegDst), .q_ALUOp1(EX_ALUOp1), .q_ALUOp0(EX_ALUOp0), .q_ALUSrc(EX_ALUSrc),
+					.d_Branch(ID_Branch), .d_MemRead(ID_MemRead), .d_MemWrite(ID_MemWrite),
+					.q_Branch(EX_Branch), .q_MemRead(EX_MemRead), .q_MemWrite(EX_MemWrite),
+					.d_RegWrite(ID_RegWrite), .d_MemtoReg(ID_MemtoReg),
+					.q_RegWrite(EX_RegWrite), .q_MemtoReg(EX_MemtoReg), 
+					.d_RegRd(ID_RegRd), .d_RegRs(ID_RegRs), .d_RegRt(ID_RegRt),
+					.q_RegRd(EX_RegRd), .q_RegRs(EX_RegRs), .q_RegRt(EX_RegRt),
+					.d_RegRsVal(ID_RegRsVal), .d_RegRtVal(ID_RegRtVal),
+					.q_RegRsVal(EX_RegRsVal), .q_RegRtVal(EX_RegRtVal),
+					.d_pc_inc(ID_pc_inc),
+					.q_pc_inc(EX_pc_inc),
+					.d_imm8(ID_imm8), .d_instr(ID_instr), .d_Opcode(ID_Opcode),
+					.q_imm8(EX_imm8), .q_instr(EX_instr), .q_Opcode(EX_Opcode),
+					.wen(), .clk(clk), .rst(rst));
+				
+	EXMEM_ff ff_exmem(.d_Branch(EX_Branch), .d_MemRead(EX_MemRead), .d_MemWrite(EX_MemWrite),
+				      .q_Branch(MEM_Branch), .q_MemRead(MEM_MemRead), .q_MemWrite(MEM_MemWrite),
+					  .d_RegWrite(EX_RegWrite), .d_MemtoReg(EX_MemtoReg),
+					  .q_RegWrite(MEM_RegWrite), .q_MemtoReg(MEM_MemtoReg), 
+					  .d_RegRd(EX_RegRd), .d_RegRs(EX_RegRs), .d_RegRt(EX_RegRt),
+					  .q_RegRd(MEM_RegRd), .q_RegRs(MEM_RegRs), .q_RegRt(MEM_RegRt),
+					  .d_RegRsVal(EX_RegRsVal), .d_RegRtVal(EX_RegRtVal),
+					  .q_RegRsVal(MEM_RegRsVal), .q_RegRtVal(MEM_RegRtVal),
+					  .d_pc_inc(EX_pc_inc),
+					  .q_pc_inc(MEM_pc_inc),
+					  .d_imm8(EX_imm8), .d_alu_data(EX_alu_data), .d_Opcode(EX_Opcode),
+					  .q_imm8(MEM_imm8), .q_alu_data(MEM_alu_data), .q_Opcode(MEM_Opcode),
+					  .wen(), .clk(clk), .rst(rst));
+				
+	MEMWB_ff ff_memwb(.d_RegWrite(MEM_RegWrite), .d_MemtoReg(MEM_MemtoReg),
+				      .q_RegWrite(WB_RegWrite), .q_MemtoReg(WB_MemtoReg), 
+					  .d_RegRd(MEM_RegRd), .d_RegRs(MEM_RegRs), .d_RegRt(MEM_RegRt),
+					  .q_RegRd(WB_RegRd), .q_RegRs(WB_RegRs), .q_RegRt(WB_RegRt),
+					  .d_RegRsVal(MEM_RegRsVal), .d_RegRtVal(MEM_RegRtVal),
+					  .q_RegRsVal(WB_RegRsVal), .q_RegRtVal(WB_RegRtVal),
+					  .d_pc_inc(MEM_pc_inc),
+					  .q_pc_inc(WB_pc_inc),
+					  .d_imm8(MEM_imm8), .d_alu_data(MEM_alu_data), .d_Opcode(MEM_Opcode),
+					  .q_imm8(WB_imm8), .q_alu_data(WB_alu_data), .q_Opcode(WB_Opcode),
+					  .d_lw_data(MEM_lw_data),
+					  .q_lw_data(WB_lw_data),
+					  .wen(), .clk(clk), .rst(rst));
 
+    assign IF_instr = instr;
+	assign IF_pc = pc_inc;	// TODO: make sure this is correct
+	
+	assign ID_MemRead = memr;
+	assign ID_MemWrite = memw;
+	assign ID_MemtoReg = memtoreg;
+	assign ID_RegWrite = regw;
+	assign ID_ALUOp0 = alu_in1; // not right, check rs_reg to see what it does
+	assign ID_ALUOp1 = alu_in2; // not right, check rs_reg to see what it does
+	assign ID_RegRd = rd;
+	assign ID_RegRs = rs; // TODO: double check that this is correct and not rs_lb
+	assign ID_RegRt = rt;
+	assign ID_RegRsVal = rs_reg;
+	assign ID_RegRtVal = rt_reg;
+	assign ID_Opcode = opcode;
+	assign ID_imm8 = imm_8_bit;
+
+	assign EX_alu_data = alu_data;	
+	assign MEM_lw_data = lw_data;
+
+	
+	
+
+
+	// Fetch stage ?
+	
 	//assign pc_ctr here... including branch conditions
 	Register pc_register(.clk(clk), .rst(!rst_n), .D(pc_next), .WriteReg(1'b1), .ReadEnable1(1'b1), .ReadEnable2(1'b0), .Bitline1(pc_output), .Bitline2());
 	
-	pcc control(.clk(clk), .rst_n(rst_n), .fl(fl), .instr(instr), .rs_reg(rs_reg), .pc_output(pc_output), .pc_next(pc_next), .pc_inc(pc_inc), .hlt(hlt));
+	pcc control(.clk(clk), .rst_n(rst_n), .fl(fl), .instr(instr), .rs_reg(rs_reg), .pc_output(pc_output), .pc_next(pc_next), .pc_inc(pc_inc), .hlt(hlt)); // TODO extract code to split stages
 
 	// Fetch instruction from instruction mem
 	memory1c ins_mem(.data_out(instr), .data_in(16'h0000), .addr(pc_output), .enable(1'b1), .wr(1'b0), .clk(clk), .rst(!rst_n));
 	
 	// assign inputs
-	assign opcode = instr[15:12];
-	assign rd = instr[11:8];
-	assign rs = instr[7:4];
-	assign rt = (opcode[3:1] == 3'b100) ? instr[11:8] : instr[3:0];		// used for immediate for SLL, SRA, ROR
-	assign imm_8_bit = instr[7:0];
-	assign imm_9_bit = instr[8:0];
+	assign opcode = ID_instr[15:12];
+	assign rd = ID_instr[11:8];
+	assign rs = ID_instr[7:4];
+	assign rt = (opcode[3:1] == 3'b100) ? ID_instr[11:8] : ID_instr[3:0];		// used for immediate for SLL, SRA, ROR
+	assign imm_8_bit = ID_instr[7:0];
+	assign imm_9_bit = ID_instr[8:0]; // not used
 
 	// assign control signals
 	assign memw = (opcode == 4'b1001);
@@ -80,21 +161,34 @@ module cpu(clk, rst_n, hlt, pc_out);
 	// pc src determined by branch control
 	assign regw = (opcode[3] == 1'b0) | (opcode == 4'b1000) | (opcode[3:1] == 3'b101) | (opcode == 4'b1110);
 	
-	assign dst_data = (!opcode[3]) ? alu_data : (opcode[3:1] == 3'b101) ? lb_data : (opcode[3:0] == 4'b1110) ? pc_inc : lw_data;
-	assign lb_data = (opcode[0]) ? {imm_8_bit, rs_reg[7:0]} : {rs_reg[15:8], imm_8_bit};
+	
+	// WB stage maybe?
+	
+	assign dst_data = (!WB_Opcode[3]) ? WB_alu_data : (WB_Opcode[3:1] == 3'b101) ? lb_data : (WB_Opcode[3:0] == 4'b1110) ? WB_pc_inc : WB_lw_data; // TODO: what are these variables
+	
+	// WB actually?
+	assign lb_data = (WB_Opcode[0]) ? {WB_imm8, WB_RegRsVal[7:0]} : {WB_RegRsVal[15:8], WB_imm8};  // TODO: pipeline these immediates
+	
+	// ID stage stuff
 	
 	assign alu_in1 = (opcode[3:1] == 3'b100) ? {rs_reg[15:1], 1'b0} : rs_reg;
-	assign alu_in2 = (opcode[3:1] == 3'b100) ? {{ {11{instr[3]}}, instr[3:0]}, 1'b0} : ((opcode[3:2] == 2'b01) && (opcode[1:0] != 2'b11)) ? {12'h000, instr[3:0]} : rt_reg;
+	assign alu_in2 = (opcode[3:1] == 3'b100) ? {{ {11{ID_instr[3]}}, ID_instr[3:0]}, 1'b0} : 
+			((opcode[3:2] == 2'b01) && (opcode[1:0] != 2'b11)) ? {12'h000, ID_instr[3:0]} : rt_reg;
 	
-	ALU alu(.Opcode(opcode), .in1(alu_in1), .in2(alu_in2), .out(alu_data), .flags(fl));
+	// EX stage
+	ALU alu(.Opcode(EX_Opcode), .in1(EX_ALUOp0), .in2(EX_ALUOp1), .out(alu_data), .flags(fl)); // TODO: pipeline flags
+	
+	// Register file deals with stuff in the ID and WB stages
 	
 	// Fetch from registers
 	// check RST signal...
 	wire [3:0] rs_lb;
 	assign rs_lb = (opcode[3:1] == 3'b101) ? rd : rs;
-	RegisterFile rf (.clk(clk), .rst(!rst_n), .SrcReg1(rs_lb), .SrcReg2(rt), .DstReg(rd), .WriteReg(regw), .DstData(dst_data), .SrcData1(rs_reg), .SrcData2(rt_reg));
+	RegisterFile rf (.clk(clk), .rst(!rst_n), .SrcReg1(rs_lb), .SrcReg2(rt), .DstReg(WB_RegRd), .WriteReg(regw), .DstData(dst_data), .SrcData1(rs_reg), .SrcData2(rt_reg));
+
+    // MEM stage //
 
 	// main filespace
-	memory1c usr_data(.data_out(lw_data), .data_in(rt_reg), .addr(alu_data), .enable(memr), .wr(memw), .clk(clk), .rst(!rst_n));
+	memory1c usr_data(.data_out(lw_data), .data_in(MEM_RegRtVal), .addr(alu_data), .enable(MEM_MemRead), .wr(MEM_MemWrite), .clk(clk), .rst(!rst_n)); // TODO: pipeline data
 	
 	endmodule
