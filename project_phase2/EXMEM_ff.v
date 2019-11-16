@@ -5,6 +5,7 @@ module EXMEM_ff (q_Branch, d_Branch, q_MemRead, d_MemRead, q_MemWrite, d_MemWrit
 				q_RegRd, d_RegRd, q_RegRs, d_RegRs, q_RegRt, d_RegRt,
 				q_RegRsVal, d_RegRsVal, q_RegRtVal, d_RegRtVal,
 				q_alu_data, d_alu_data, q_imm8, d_imm8, q_Opcode, d_Opcode,  q_pc_inc, d_pc_inc,
+				q_halt, d_halt,
 				wen, clk, rst);
 
     //output         q; //DFF output
@@ -15,6 +16,7 @@ module EXMEM_ff (q_Branch, d_Branch, q_MemRead, d_MemRead, q_MemWrite, d_MemWrit
 
     reg s_Branch, s_MemRead, s_MemWrite;
     reg s_RegWrite, s_MemtoReg;
+	reg s_halt;
     reg [3:0] s_RegRd, s_RegRs, s_RegRt;
 	reg [3:0] s_Opcode;
 	reg [15:0] s_RegRsVal, s_RegRtVal, s_alu_data, s_pc_inc;
@@ -38,6 +40,7 @@ module EXMEM_ff (q_Branch, d_Branch, q_MemRead, d_MemRead, q_MemWrite, d_MemWrit
 	input [15:0] d_RegRsVal;		output [15:0] q_RegRsVal;
 	input [15:0] d_RegRtVal;		output [15:0] q_RegRtVal;
 
+	input d_halt;				output q_halt;
     input [3:0] d_Opcode;		output [3:0] q_Opcode;
 	input [15:0] d_alu_data;	output [15:0] q_alu_data;
 	input [15:0] d_pc_inc;		output [15:0] q_pc_inc;
@@ -57,6 +60,7 @@ module EXMEM_ff (q_Branch, d_Branch, q_MemRead, d_MemRead, q_MemWrite, d_MemWrit
 	assign q_RegRsVal = s_RegRsVal;
 	assign q_RegRtVal = s_RegRtVal;
 	
+	assign q_halt = s_halt;
 	assign q_Opcode = s_Opcode;
 	assign q_alu_data = s_alu_data;
 	assign q_pc_inc = s_pc_inc;
@@ -75,8 +79,9 @@ module EXMEM_ff (q_Branch, d_Branch, q_MemRead, d_MemRead, q_MemWrite, d_MemWrit
 	  s_RegRt <= rst ? 0 : (wen ? d_RegRt : s_RegRt);
 	  s_RegRsVal <= rst ? 0 : (wen ? d_RegRsVal : s_RegRsVal);
 	  s_RegRtVal <= rst ? 0 : (wen ? d_RegRtVal : s_RegRtVal);
-	  
-	  s_Opcode <= rst ? 0 : (wen ? d_Opcode : s_Opcode);
+
+	  s_halt <= rst ? 0 : (wen ? d_halt : s_halt);	  
+	  s_Opcode <= rst ? 4'b0100 : (wen ? d_Opcode : s_Opcode);
 	  s_alu_data <= rst ? 0 : (wen ? d_alu_data : s_alu_data);
 	  s_pc_inc <= rst ? 0 : (wen ? d_pc_inc : s_pc_inc);
 	  s_imm8 <= rst ? 0 : (wen ? d_imm8 : s_imm8);

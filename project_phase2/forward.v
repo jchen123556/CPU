@@ -10,6 +10,6 @@ module ForwardingUnit(input [3:0] IDEX_rs, input [3:0] IDEX_rt, input [3:0] EXME
 	assign ex_fwd1 = (MEMWB_rw && (MEMWB_rd != 4'b0000) && ~(EXMEM_rw && (EXMEM_rd != 4'b0000) && (EXMEM_rd != IDEX_rs)) && (MEMWB_rd == IDEX_rs)) ? 2'b01 : extoex1;
 	assign ex_fwd2 = (MEMWB_rw && (MEMWB_rd != 4'b0000) && ~(EXMEM_rw && (EXMEM_rd != 4'b0000) && (EXMEM_rd != IDEX_rt)) && (MEMWB_rd == IDEX_rt)) ? 2'b01 : extoex2;
 	
-	assign memfwd1 = (MEMWB_rw && (MEMWB_rt != 4'b0000) && (MEMWB_rt == EXMEM_rs) && (EXMEM_mr || EXMEM_mw) ) ? 1'b1 : 1'b0;
-	assign memfwd2 = (MEMWB_rw && (MEMWB_rt != 4'b0000) && (MEMWB_rt == EXMEM_rt) && (EXMEM_mr || EXMEM_mw) ) ? 1'b1 : 1'b0;
+	assign mem_fwd1 = (MEMWB_rw && (MEMWB_rt != 4'b0000) && (MEMWB_rt == EXMEM_rs) && (EXMEM_mr || EXMEM_mw) ) ? 1'b1 : 1'b0;
+	assign mem_fwd2 = (MEMWB_rw && (MEMWB_rt != 4'b0000) && (MEMWB_rt == EXMEM_rt) && (EXMEM_mr || EXMEM_mw) ) ? 1'b1 : 1'b0;
 endmodule

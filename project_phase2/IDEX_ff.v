@@ -6,6 +6,7 @@ module IDEX_ff (q_RegDst, d_RegDst, q_ALUOp1, d_ALUOp1, q_ALUOp0, d_ALUOp0, q_AL
 				q_RegRd, d_RegRd, q_RegRs, d_RegRs, q_RegRt, d_RegRt,
 				q_RegRsVal, d_RegRsVal, q_RegRtVal, d_RegRtVal,
 				q_imm8, d_imm8, q_instr, d_instr, q_Opcode, d_Opcode, q_pc_inc, d_pc_inc,
+				q_halt, d_halt,
 				wen, clk, rst);
 
     //output         q; //DFF output
@@ -17,6 +18,7 @@ module IDEX_ff (q_RegDst, d_RegDst, q_ALUOp1, d_ALUOp1, q_ALUOp0, d_ALUOp0, q_AL
     reg s_RegDst, s_ALUOp1, s_ALUOp0, s_ALUSrc;
     reg s_Branch, s_MemRead, s_MemWrite;
     reg s_RegWrite, s_MemtoReg;
+	reg s_halt;
     reg [3:0] s_RegRd, s_RegRs, s_RegRt;
 	reg [3:0] s_Opcode;
 	reg [15:0] s_RegRsVal, s_RegRtVal, s_instr, s_pc_inc;
@@ -46,6 +48,7 @@ module IDEX_ff (q_RegDst, d_RegDst, q_ALUOp1, d_ALUOp1, q_ALUOp0, d_ALUOp0, q_AL
 	input [15:0] d_RegRsVal;		output [15:0] q_RegRsVal;
 	input [15:0] d_RegRtVal;		output [15:0] q_RegRtVal;
 
+    input d_halt;			output q_halt;
     input [3:0] d_Opcode;	output [3:0] q_Opcode;
     input [15:0] d_instr;	output [15:0] q_instr;
 	input [15:0] d_pc_inc;	output [15:0] q_pc_inc;
@@ -70,6 +73,7 @@ module IDEX_ff (q_RegDst, d_RegDst, q_ALUOp1, d_ALUOp1, q_ALUOp0, d_ALUOp0, q_AL
 	assign q_RegRsVal = s_RegRsVal;
 	assign q_RegRtVal = s_RegRtVal;
 	
+	assign q_halt = s_halt;
 	assign q_Opcode = s_Opcode;
 	assign q_pc_inc = s_pc_inc;
 	assign q_instr = s_instr;
@@ -94,7 +98,8 @@ module IDEX_ff (q_RegDst, d_RegDst, q_ALUOp1, d_ALUOp1, q_ALUOp0, d_ALUOp0, q_AL
 	  s_RegRsVal <= rst ? 0 : (wen ? d_RegRsVal : s_RegRsVal);
 	  s_RegRtVal <= rst ? 0 : (wen ? d_RegRtVal : s_RegRtVal);
 	  
-	  s_Opcode <= rst ? 0 : (wen ? d_Opcode : s_Opcode);
+	  s_halt <= rst ? 0 : (wen ? d_halt : s_halt);
+	  s_Opcode <= rst ? 4'b0100 : (wen ? d_Opcode : s_Opcode);
 	  s_pc_inc <= rst ? 0 : (wen ? d_pc_inc : s_pc_inc);
 	  s_instr <= rst ? 0 : (wen ? d_instr : s_instr);
 	  s_imm8 <= rst ? 0 : (wen ? d_imm8 : s_imm8);
