@@ -1,8 +1,7 @@
-module pcc(input clk, input rst_n, input [2:0] fl, input [15:0] instr, input [15:0] rs_reg, input [15:0] pc_output, output [15:0] pc_next, input [15:0] pc_inc, output branch);
+module pcc(input clk, input rst_n, input [2:0] F, input [15:0] instr, input [15:0] rs_reg, input [15:0] pc_output, output [15:0] pc_next, input [15:0] pc_inc, output branch);
 	wire [15:0] pc_br, pc_bs;
 	wire [3:0] opcode;
-	wire [2:0] F, C;
-	wire z_en, v_en, n_en;
+	wire [2:0] C;
 	wire br, p1, p2, p3, p4, p5, p6, p7, p8;
 
 	assign C = instr[11:9];	
@@ -23,14 +22,7 @@ module pcc(input clk, input rst_n, input [2:0] fl, input [15:0] instr, input [15
 	assign p8 = (C == 3'b111) ? 1'b1 : 1'b0;
 	assign br = (opcode[3:1] == 3'b110) && (p1 || p2 || p3 || p4 || p5 || p6 || p7 || p8 );
 	
-	assign z_en = (opcode[3:2] == 2'b00 && opcode[1:0]!=2'b00);
-	assign v_en = (opcode[3:1] == 3'b000);
-	assign n_en = (opcode[3:1] == 3'b000);
-	
 	assign branch = br;
 
-	dff z(.d(fl[2]), .q(F[2]), .wen(z_en), .clk(clk), .rst(!rst_n));    // zvn
-	dff v(.d(fl[1]), .q(F[1]), .wen(v_en), .clk(clk), .rst(!rst_n));
-	dff n(.d(fl[0]), .q(F[0]), .wen(n_en), .clk(clk), .rst(!rst_n));
 
 endmodule

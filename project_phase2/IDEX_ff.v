@@ -15,7 +15,8 @@ module IDEX_ff (q_RegDst, d_RegDst, q_ALUOp1, d_ALUOp1, q_ALUOp0, d_ALUOp0, q_AL
     input          	clk; //Clock
     input          	rst; //Reset (used synchronously)
 
-    reg s_RegDst, s_ALUOp1, s_ALUOp0, s_ALUSrc;
+    reg s_RegDst, s_ALUSrc;
+	reg [15:0] s_ALUOp1, s_ALUOp0;
     reg s_Branch, s_MemRead, s_MemWrite;
     reg s_RegWrite, s_MemtoReg;
 	reg s_halt;
@@ -27,10 +28,10 @@ module IDEX_ff (q_RegDst, d_RegDst, q_ALUOp1, d_ALUOp1, q_ALUOp0, d_ALUOp0, q_AL
     //// IO signals ////
 
     // control signals for execution stage //
-    input d_RegDst;			output q_RegDst;
-    input d_ALUOp1;			output q_ALUOp1;
-    input d_ALUOp0;			output q_ALUOp0;
-    input d_ALUSrc;			output q_ALUSrc;
+    input d_RegDst;					output q_RegDst;
+    input [15:0] d_ALUOp1;			output [15:0] q_ALUOp1;
+    input [15:0] d_ALUOp0;			output [15:0] q_ALUOp0;
+    input d_ALUSrc;					output q_ALUSrc;
 
     // control signals for memory stage
     input d_Branch;			output q_Branch;

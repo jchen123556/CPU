@@ -37,7 +37,7 @@ module IFID_ff (q_pc_inc, q_pc_out, q_instr, q_rs_reg, d_pc_inc, d_pc_out, d_ins
     always @(posedge clk) begin
       s_pc_inc <= rst ? 0 : (wen ? d_pc_inc : s_pc_inc);
 	  s_pc_out <= rst ? 0 : (wen ? d_pc_out : s_pc_out);
-      s_instr <= rst ? 0 : (wen ? d_instr : s_instr); 
+      s_instr <= rst ? 16'h4000 : (wen ? d_instr : s_instr); 
 	  s_rs_reg <= rst ? 0 : (wen ? d_rs_reg : s_rs_reg);
 	  s_halt <= rst ? 0 : (wen ? d_halt : s_halt);
     end
