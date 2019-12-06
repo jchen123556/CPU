@@ -35,7 +35,9 @@ module cpu(clk, rst_n, hlt, pc_out);
 	assign rst = !rst_n;
 
 
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////// Start of pipelining flops ///////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
     //// Pipeline flop test ////
@@ -143,7 +145,10 @@ module cpu(clk, rst_n, hlt, pc_out);
 
 	assign EX_alu_data = real_alu_data;	
 	assign MEM_lw_data = lw_data;
-
+	
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////End of pipelining flops ////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	
 
@@ -180,7 +185,6 @@ module cpu(clk, rst_n, hlt, pc_out);
 
     // ID Stage //
 	// assign control signals
-	//assign ID_halt_real = (ID_Branch) ? 1'b0 : ID_halt;
 	assign memw = (opcode == 4'b1001);
 	assign memr = (opcode[3:0] == 4'b1000);
 	assign memtoreg = ((opcode == 4'b1000) | (opcode == 4'b1010) | (opcode == 4'b1011));
@@ -189,12 +193,67 @@ module cpu(clk, rst_n, hlt, pc_out);
 	// pc src determined by branch control
 	assign regw = (opcode[3] == 1'b0) | (opcode == 4'b1000) | (opcode[3:1] == 3'b101) | (opcode == 4'b1110);
 	
+	
+	
+	
+	
+	
+	// TODO: Caches are involved with I and D stages, insert them somewhere around here //
+			// On a cache miss, load data from mem and load it into cache
+			
+	// TODO: Cache statemachine should also go near the chaches themselves, insert them somewhere around here //
+	cache_fill_FSM(.clk(clk), .rst_n(rst_n), .miss_detected(), .miss_address(), .fsm_busy(), .write_data_array(), .write_tag_array(),
+					.memory_address(), .memory_data(), .memory_data_valid());
+	
+	// TODO: Does access to memory already exist? If no add here. If yes find where it is.
+				// A multi-cycle main memory is provided, this must be different than what is normally used
+	// TODO: Implement a method of arbitrating concurrent cache misses (mem references) and stalling 
+				// Do we need to stall the entire pipeline for this or can we just stall one of the cache misses?
+	
+	wire [1:0] fsm_busy, write_data_array, write_tag_array;
+	wire [15:0] memory_address;
+
+	wire [1:0] next_valid;
+	wire [1:0] inv_valid;
+	wire [1:0] q_valid;
+
+	wire [1:0] miss, d_miss, q_miss;
+
+	cache_fill_FSM cfsmD(.clk(clk), .rst_n(rst_n), .miss_detected(miss[0]), .miss_address(miss_address1), 
+					.fsm_busy(fsm_busy[0]), .write_data_array(write_data_array[0]), .write_tag_array(write_tag_array[0]), .memory_address(memory_address), 
+					.memory_data(memory_data), .memory_data_valid(next_valid[0] && memory_data_valid));
+					
+	cache_fill_FSM cfsmI(.clk(clk), .rst_n(rst_n), .miss_detected(miss[1]), .miss_address(miss_address2), 
+					.fsm_busy(fsm_busy[1]), .write_data_array(write_data_array[1]), .write_tag_array(write_tag_array[1]), .memory_address(memory_address), 
+					.memory_data(memory_data), .memory_data_valid(next_valid[1] && memory_data_valid));
+
+	// 00 - no valid, 01 - cfsmD valid, 10 - cfsmI valid
+	assign next_valid = (!fsm_busy[1] && !fsm_busy[0]) ? 2'b00 : (fsm_busy[1] && !fsm_busy[0]) ? 2'b10 : (!fsm_busy[1] && fsm_busy[0]) ? 2'b01 : q_valid;
+	assign inv_valid = (memory_data_valid || (|miss)) ? ~next_valid : next_valid;
+
+	dff valid_ff1(.q(q_valid[1]), .d(inv_valid[1]), .wen(1), .clk(clk), .rst(rst));
+	dff valid_ff0(.q(q_valid[0]), .d(inv_valid[0]), .wen(1), .clk(clk), .rst(rst));
+
+	// I cache gets priority //
+	assign d_miss[1] = (write_data_array[0] && !write_tag_array[0]) && miss_detected2;
+	assign miss[1] = (!(write_data_array[0] && !write_tag_array[0]) && miss_detected2) || q_miss[1];
+
+	// D cache miss logic //
+	assign d_miss[0] = ((write_data_array[1] && !write_tag_array[1]) || miss_detected2) && miss_detected1;
+	assign miss[0] = (!((write_data_array[1] && !write_tag_array[1]) || miss_detected2) && miss_detected1) || q_miss[0];
+
+	dff miss_ff1(.q(q_miss[1]), .d(d_miss[1]), .wen(1'b1), .clk(clk), .rst(rst));
+	dff miss_ff0(.q(q_miss[0]), .d(d_miss[0]), .wen(1'b1), .clk(clk), .rst(rst));
+	
+	
+	
+	
+	
 	// ID Stage //
-	hazard haz(.IDEX_mr(EX_MemRead), .IFID_br(ID_Branch), .IDEX_rd(EX_RegRd), .IFID_rt(ID_RegRt), .IFID_rs(ID_RegRs),
-	.EXMEM_mr(MEM_MemRead), .EXMEM_rd(MEM_RegRd), .IDEX_rw(EX_RegWrite), .IFID_mr(ID_MemRead), .IFID_mw(ID_MemWrite), .stall(stall));	
+	hazard haz(.IDEX_mr(EX_MemRead), .IFID_br(ID_Branch), .IDEX_rd(EX_RegRd), .IFID_rt(ID_RegRt), .IFID_rs(ID_RegRs),					// hazard detection unit
+	.EXMEM_mr(MEM_MemRead), .EXMEM_rd(MEM_RegRd), .IDEX_rw(EX_RegWrite), .IFID_mr(ID_MemRead), .IFID_mw(ID_MemWrite), .stall(stall));	// hazard detection unit continued
 	
-	// WB stage maybe?
-	
+	// WB stage maybe?	
 	assign dst_data = (!WB_Opcode[3]) ? WB_alu_data : (WB_Opcode[3:1] == 3'b101) ? WB_alu_data : (WB_Opcode[3:0] == 4'b1110) ? WB_pc_inc : WB_lw_data; // TODO: what are these variables
 	
 	// WB actually?
@@ -202,7 +261,6 @@ module cpu(clk, rst_n, hlt, pc_out);
 	assign real_alu_data = (EX_Opcode[3:1] == 3'b101) ? lb_data : alu_data;
 	
 	// ID stage stuff
-	
 	assign alu_in1 = (opcode[3:1] == 3'b100) ? {rs_reg[15:1], 1'b0} : rs_reg;
 	assign alu_in2 = (opcode[3:1] == 3'b100) ? {{ {11{ID_instr[3]}}, ID_instr[3:0]}, 1'b0} : 
 			((opcode[3:2] == 2'b01) && (opcode[1:0] != 2'b11)) ? {12'h000, ID_instr[3:0]} : rt_reg;
@@ -245,6 +303,7 @@ module cpu(clk, rst_n, hlt, pc_out);
     // MEM stage //
 
 	// main filespace
-	memory1c usr_data(.data_out(lw_data), .data_in(real_mem_input_1), .addr(real_mem_input_0), .enable(MEM_MemRead), .wr(MEM_MemWrite), .clk(clk), .rst(!rst_n)); // TODO: pipeline data
+	//memory1c usr_data(.data_out(lw_data), .data_in(real_mem_input_1), .addr(real_mem_input_0), .enable(MEM_MemRead), .wr(MEM_MemWrite), .clk(clk), .rst(!rst_n)); // TODO: pipeline data
+	module memory4c usr_data (.data_out(), .data_in(), .addr(), .enable(), .wr(), .clk(clk), .rst(!rst_n), .data_valid());
 	
 	endmodule
