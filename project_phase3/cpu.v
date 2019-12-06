@@ -202,16 +202,19 @@ module cpu(clk, rst_n, hlt, pc_out);
 			// On a cache miss, load data from mem and load it into cache
 			
 	// TODO: Cache statemachine should also go near the chaches themselves, insert them somewhere around here //
-	cache_fill_FSM(.clk(clk), .rst_n(rst_n), .miss_detected(), .miss_address(), .fsm_busy(), .write_data_array(), .write_tag_array(),
-					.memory_address(), .memory_data(), .memory_data_valid());
+
 	
 	// TODO: Does access to memory already exist? If no add here. If yes find where it is.
 				// A multi-cycle main memory is provided, this must be different than what is normally used
 	// TODO: Implement a method of arbitrating concurrent cache misses (mem references) and stalling 
 				// Do we need to stall the entire pipeline for this or can we just stall one of the cache misses?
-	
+				
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////// Cache Arbitration Code /////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	wire memory_data_valid;
 	wire [1:0] fsm_busy, write_data_array, write_tag_array;
-	wire [15:0] memory_address;
+	wire [15:0] memory_address, memory_data;
 
 	wire [1:0] next_valid;
 	wire [1:0] inv_valid;
@@ -245,7 +248,9 @@ module cpu(clk, rst_n, hlt, pc_out);
 	dff miss_ff1(.q(q_miss[1]), .d(d_miss[1]), .wen(1'b1), .clk(clk), .rst(rst));
 	dff miss_ff0(.q(q_miss[0]), .d(d_miss[0]), .wen(1'b1), .clk(clk), .rst(rst));
 	
-	
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////// End of Cache arbitration code ////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	
 	
@@ -304,6 +309,6 @@ module cpu(clk, rst_n, hlt, pc_out);
 
 	// main filespace
 	//memory1c usr_data(.data_out(lw_data), .data_in(real_mem_input_1), .addr(real_mem_input_0), .enable(MEM_MemRead), .wr(MEM_MemWrite), .clk(clk), .rst(!rst_n)); // TODO: pipeline data
-	module memory4c usr_data (.data_out(), .data_in(), .addr(), .enable(), .wr(), .clk(clk), .rst(!rst_n), .data_valid());
+	module memory4c usr_data (.data_out(memory_data), .data_in(), .addr(memory_address), .enable(), .wr(), .clk(clk), .rst(!rst_n), .data_valid(memory_data_valid));
 	
 	endmodule
